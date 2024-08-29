@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Punky Demo App Frontend
 
-## Getting Started
+## Development Environment
 
-First, run the development server:
+### `nodejs` environment
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+`nvm` is recommended to manage Node.js environments.
+
+We use `nodejs v20`.
+
+``` bash
+nvm install 20
+nvm use 20
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installing `yarn`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+If `yarn` is not installed, install via:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+``` bash
+npm install -g yarn
+```
 
-## Learn More
+### Installing dependencies
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# In project root directory
+yarn
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Running the development server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+yarn dev
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+After the server is started, open <http://localhost:3000> in your browser.
