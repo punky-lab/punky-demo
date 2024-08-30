@@ -34,9 +34,11 @@ export function Providers(props: PropsWithChildren) {
   return (
     <NextUIProvider>
       <DynamicContextProvider
+        theme={"dark"}
         settings={{
           // Find your environment id at https://app.dynamic.xyz/dashboard/developer
           environmentId: "f0f2bb32-6435-40c3-8b73-768d1c6f577a",
+          appName: "Punky",
           walletConnectors: [
             EthereumWalletConnectors,
             // SolanaWalletConnectors,

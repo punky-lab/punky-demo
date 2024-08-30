@@ -19,7 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="dark text-white w-screen h-screen bg-gradient-to-b from-black from-80% to-purple-950">
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );
