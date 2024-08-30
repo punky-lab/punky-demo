@@ -1,5 +1,7 @@
 import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
 import { Link } from "@nextui-org/react";
+import Image from 'next/image';
+import PunkyLogo from '../assets/logo.png';
 
 // In dashboard, displaying a 'whitepaper' link.
 // In game, displaying 'marketplace', 'ranking' etc.
@@ -31,9 +33,9 @@ export default function AppHeader(props: AppHeaderProps) {
   return (
     <div className="w-full h-20 px-8 border-b-1 border-b-white flex flex-row items-center">
       <div>
-        <span>Logo</span>
+        <Image src={PunkyLogo.src} alt='/logo.png' width={48} height={48} />
       </div>
-      <div>
+      <div className='ml-8'>
         {linkList.map((item, i) => {
           return (
             <Link
