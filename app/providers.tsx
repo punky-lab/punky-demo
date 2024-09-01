@@ -14,7 +14,7 @@ import { mainnet, confluxESpaceTestnet } from "viem/chains";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { SolanaWalletConnectors } from "@dynamic-labs/solana";
 import { PropsWithChildren } from "react";
-
+import GlobalRedirectProvider from "./accountEffect";
 
 const config = createConfig({
   chains: [
@@ -46,9 +46,11 @@ export function Providers(props: PropsWithChildren) {
         }}
       >
         <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-            <DynamicWagmiConnector>{props.children}</DynamicWagmiConnector>
-          </QueryClientProvider>
+          <GlobalRedirectProvider>
+            <QueryClientProvider client={queryClient}>
+              <DynamicWagmiConnector>{props.children}</DynamicWagmiConnector>
+            </QueryClientProvider>
+          </GlobalRedirectProvider>
         </WagmiProvider>
       </DynamicContextProvider>
     </NextUIProvider>
