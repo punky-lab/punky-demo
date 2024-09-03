@@ -1,6 +1,7 @@
 "use client";
 
 import { Tab, Tabs } from "@nextui-org/react";
+import Bag from './bag';
 
 export default function SideBar() {
   return (
@@ -13,7 +14,7 @@ export default function SideBar() {
         </Tab>
         <Tab key="bag" title="Bag" className="grow flex">
           <div className="grow bg-gray-800 rounded-xl p-4">
-            <span>Bag</span>
+            <Bag />
           </div>
         </Tab>
       </Tabs>
