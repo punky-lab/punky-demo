@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Image, useDisclosure} from '@nextui-org/react';
 import logo from "../assets/logo.png";
-export default function TraitsDisplay() {
+export default function NFTDisplay(props) {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     return (
@@ -11,7 +11,7 @@ export default function TraitsDisplay() {
                 height={100}
                 alt="trait1 with fallback"
                 src={logo.src}
-                fallbacksrc={logo.src}
+                fallbackSrc={logo.src}
                 isZoomed
                 onClick={onOpen}
             />
@@ -29,14 +29,15 @@ export default function TraitsDisplay() {
                                     height={200}
                                     alt="trait1 with fallback"
                                     src={logo.src}
-                                    fallbacksrc={logo.src}
+                                    fallbackSrc={logo.src}
                                 />
                             </ModalHeader>
                             <ModalBody>
                                 <p>Traits Description</p>
                             </ModalBody>
                             <ModalFooter>
-                                <Button onPress={onClose}>Equip</Button>
+                                {props.ButtonType == "buy or auction" && <Button onPress={onClose}>buy or auction</Button>}
+                                {props.ButtonType == "equip or sell" && <Button onPress={onClose}>equip or sell</Button>}
                             </ModalFooter>
                         </>
                     )}
