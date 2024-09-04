@@ -1,27 +1,42 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { useAccount, useAccountEffect } from "wagmi";
 
 export default function GlobalRedirectProvider(props: PropsWithChildren) {
   const router = useRouter();
   const pathname = usePathname();
   const account = useAccount();
+  const [lastPath, setLastPath] = useState("");
+
+  const goBack = () => {
+    setLastPath(pathname);
+    router.push("/");
+  }
+
+  const recoverPage = () => {
+    router.push(lastPath);
+  }
 
   useAccountEffect({
     onConnect(data) {
-      router.push("/home");
+      recoverPage();
     },
     onDisconnect() {
-      router.push("/");
+      goBack();
     },
   });
 
   useEffect(() => {
+    console.log(account.status);
     if (pathname !== "/") {
       if (account.status !== "connected") {
-        router.push("/");
+        goBack();
+      }
+    } else {
+      if (account.status === "connected") {
+        recoverPage();
       }
     }
   }, [pathname]);
