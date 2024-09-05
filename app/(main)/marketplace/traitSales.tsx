@@ -1,4 +1,5 @@
 import NFTDisplay from "@/app/components/nftDisplay";
+
 export default function TraitSales() {
     return (
         <div>

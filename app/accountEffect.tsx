@@ -8,7 +8,9 @@ export default function GlobalRedirectProvider(props: PropsWithChildren) {
   const router = useRouter();
   const pathname = usePathname();
   const account = useAccount();
-  const [lastPath, setLastPath] = useState("");
+
+  // redirect to home for the first login
+  const [lastPath, setLastPath] = useState("/home");
 
   const goBack = () => {
     setLastPath(pathname);
