@@ -13,7 +13,7 @@ export default function SideBar() {
           </div>
         </Tab>
         <Tab key="bag" title="Bag" className="grow flex">
-          <div className="grow bg-gray-800 rounded-xl p-4">
+          <div className="grow bg-gray-800 rounded-xl p-4 max-h-96 overflow-y-auto">
             <Bag />
           </div>
         </Tab>
