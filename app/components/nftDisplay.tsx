@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Image, useDisclosure} from '@nextui-org/react';
 import logo from "../assets/logo.png";
-export default function NFTDisplay(props) {
+export default function NFTDisplay(props: {ButtonType: string}) {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     return (
