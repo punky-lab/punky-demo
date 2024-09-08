@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Image, useDisclosure} from '@nextui-org/react';
-import logo from "../assets/logo.png";
-export default function NFTDisplay(props: {ButtonType: string}) {
+import { StaticImageData } from 'next/image';
+export default function NFTDisplay(props: {ButtonType: string, srcImg: StaticImageData}) {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     return (
@@ -10,8 +10,8 @@ export default function NFTDisplay(props: {ButtonType: string}) {
                 width={100}
                 height={100}
                 alt="trait1 with fallback"
-                src={logo.src}
-                fallbackSrc={logo.src}
+                src={props.srcImg.src}
+                fallbackSrc={props.srcImg.src}
                 isZoomed
                 onClick={onOpen}
             />
@@ -37,8 +37,8 @@ export default function NFTDisplay(props: {ButtonType: string}) {
                                         width={175}
                                         height={175}
                                         alt="trait1 with fallback"
-                                        src={logo.src}
-                                        fallbackSrc={logo.src}
+                                        src={props.srcImg.src}
+                                        fallbackSrc={props.srcImg.src}
                                     />
                                 </div>
                             </ModalHeader>

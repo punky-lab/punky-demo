@@ -3,8 +3,9 @@
 import { Tab, Tabs } from "@nextui-org/react";
 import Bag from "./bag";
 import ChatBox from "./chatBox";
+import { StaticImageData } from "next/image";
 
-export default function SideBar() {
+export default function SideBar(props:{nfts: StaticImageData[]}) {
   return (
     <div className="h-full flex flex-col">
       <Tabs aria-label="toggle">
@@ -15,7 +16,7 @@ export default function SideBar() {
         </Tab>
         <Tab key="bag" title="Bag" className="grow flex">
           <div className="grow bg-gray-800 rounded-xl p-4 max-h-96 overflow-y-auto">
-            <Bag />
+            <Bag nfts={props.nfts}/>
           </div>
         </Tab>
       </Tabs>
