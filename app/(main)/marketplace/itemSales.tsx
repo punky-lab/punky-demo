@@ -1,11 +1,15 @@
+import { getTraits } from "@/app/api/traits";
 import NFTDisplay from "@/app/components/nftDisplay";
 
-export default function ItemSales() {
-    return (
-        <div>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <NFTDisplay ButtonType = "buy or auction" />
-            </div>
-        </div>
-    )
+export default async function ItemSales() {
+  const traits = await getTraits("0x123456");
+  return (
+    <div>
+      <div className="flex flex-row flex-wrap">
+        {traits.map((item, index) => (
+          <NFTDisplay key={index} buttonType="equip or sell" traitData={item} />
+        ))}
+      </div>
+    </div>
+  );
 }
