@@ -15,7 +15,7 @@ export default function GamePage() {
         <Button className='w-64'>Feed</Button>
       </div>
       <div className="w-1/2 h-full">
-        <SideBar nfts={[sparklab, whitecap]}/>
+        <SideBar />
       </div>
     </div>
   );

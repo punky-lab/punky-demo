@@ -1,15 +1,15 @@
+import { getTraits } from "@/app/api/traits";
 import NFTDisplay from "@/app/components/nftDisplay";
-import logo from "../../assets/logo.png";
-import { StaticImageData } from "next/image";
-export default function Bag(props: {nfts: StaticImageData[]}) {
-    return (
-        <div>
-            <span>Bag</span>
-            <span>TraitsList</span>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <NFTDisplay ButtonType = "equip or sell" srcImg={logo}/>
-                {props.nfts.map((item, index)=><NFTDisplay ButtonType = "equip or sell" srcImg={item}/>)}
-            </div>
-        </div>
-    )
+
+export default async function Bag() {
+  const traits = await getTraits("0x123456");
+  return (
+    <div>
+      <div className="flex flex-row flex-wrap">
+        {traits.map((item, index) => (
+          <NFTDisplay key={index} buttonType="equip or sell" traitData={item} />
+        ))}
+      </div>
+    </div>
+  );
 }
