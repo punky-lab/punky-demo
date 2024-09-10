@@ -49,11 +49,11 @@ export function Providers(props: PropsWithChildren) {
     <NextUIProvider>
       <DynamicContextProvider theme={"dark"} settings={settings}>
         <WagmiProvider config={config}>
-          <GlobalRedirectProvider>
-            <QueryClientProvider client={queryClient}>
-              <DynamicWagmiConnector>{props.children}</DynamicWagmiConnector>
-            </QueryClientProvider>
-          </GlobalRedirectProvider>
+          {/* <GlobalRedirectProvider> */}
+          <QueryClientProvider client={queryClient}>
+            <DynamicWagmiConnector>{props.children}</DynamicWagmiConnector>
+          </QueryClientProvider>
+          {/* </GlobalRedirectProvider> */}
         </WagmiProvider>
       </DynamicContextProvider>
     </NextUIProvider>

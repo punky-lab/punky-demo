@@ -3,8 +3,10 @@ export interface NftTrait {
   title: string;
   description: string;
   imageSrc: string;
-  category?: "head" | "body" | "leg" | "tail" | "neck";
+  category: TraitCategory;
 }
+
+export type TraitCategory = "base" | "head" | "body" | "leg" | "tail" | "neck";
 
 export interface NftMetadata {
   description: string;

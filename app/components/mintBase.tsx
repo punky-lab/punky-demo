@@ -49,8 +49,10 @@ export function MintButton({
 
   return (
     <div className="flex flex-col items-center justify-center">
-      {isConfirming && <div>Waiting for confirmation...</div>}
-      {isConfirmed ? <div>Transaction confirmed.</div> : btn}
+      {!isConfirming && !isConfirmed && btn}
+      {(isConfirming || isConfirmed) && (
+        <div>Please refresh page after confirmation.</div>
+      )}
     </div>
   );
 }
@@ -78,9 +80,8 @@ export function MintTraitButton({ traitId }: { traitId: number }) {
           console.error("state not initialized");
           return;
         }
-        if (!state.get(traitId)) {
-          state.set(traitId, true);
-        }
+        state.set(traitId, true);
+        setOwnedState(state);
       }}
     />
   );

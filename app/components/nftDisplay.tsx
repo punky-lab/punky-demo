@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -9,22 +11,31 @@ import {
   Image,
   useDisclosure,
 } from "@nextui-org/react";
-import { NftTrait } from "../lib/trait";
+import { NftTrait, TraitOwned } from "../lib/trait";
 import { useRouter } from "next/navigation";
+import { getOwnedState } from "../api/localdata";
+import { MintTraitButton } from "./mintBase";
 export default function NFTDisplay(props: {
   buttonType: string;
   traitData: NftTrait;
   updateNfts: (newNfts: NftTrait[]) => void;
   nfts: NftTrait[];
 }) {
+  const [state, setState] = useState<TraitOwned | null>(null);
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-
   const router = useRouter();
 
-  const onEquip = () => {
+  useEffect(() => {
+    setState(getOwnedState());
+  }, []);
+
+  const onEquip = useCallback(() => {
+    if (!state) {
+      return;
+    }
     if (!props.nfts.map((nft) => nft["id"]).includes(props.traitData.id)) {
-      let oldNfts = props.nfts;
-      let oldNftIndex = oldNfts.findIndex(
+      const oldNfts = props.nfts;
+      const oldNftIndex = oldNfts.findIndex(
         (item) => item["category"] === props.traitData["category"]
       );
       if (oldNftIndex !== -1) {
@@ -44,25 +55,39 @@ export default function NFTDisplay(props: {
     }
     onClose();
     router.refresh();
+  }, [state, props.nfts, props.updateNfts, props.traitData]);
+
+  if (!state) {
+    return (
+      <div className="m-2 rounded-md flex flex-col items-center justify-center p-4 w-40 h-40 bg-slate-800">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  const Locked = () => {
+    return <p className="font-semibold text-center">LOCKED</p>;
   };
 
   return (
     <>
       <div
-        className="m-8 rounded-md flex flex-col items-center justify-center p-4 cursor-pointer w-40 h-40 bg-gradient-to-b from-blue-800 to-cyan-700"
+        className="m-2 rounded-md flex flex-col items-center justify-center p-4 cursor-pointer w-40 h-40 bg-gradient-to-b from-blue-800 to-cyan-700"
         onClick={onOpen}
       >
         <Image
-          width={100}
-          height={100}
+          width={64}
+          height={64}
           alt="trait"
           src={props.traitData.imageSrc}
           fallbackSrc={props.traitData.imageSrc}
           isZoomed
           className="border-1 border-white bg-gradient-to-b to-white from-purple-300"
         />
-        <div className="mt-2">
-          <span>{props.traitData.title}</span>
+        <div className="grow"></div>
+        <div className="mt-2 text-sm text-pretty text-center">
+          <p>{props.traitData.title}</p>
+          {!state.get(props.traitData.id) && <Locked />}
         </div>
       </div>
 
@@ -85,37 +110,51 @@ export default function NFTDisplay(props: {
               <ModalHeader>
                 <div className="flex flex-col items-center">
                   <h1>{props.traitData.title}</h1>
-                  <Image
-                    width={175}
-                    height={175}
-                    alt="trait1 with fallback"
-                    src={props.traitData.imageSrc}
-                    fallbackSrc={props.traitData.imageSrc}
-                    className="border-1 border-white"
-                  />
                 </div>
               </ModalHeader>
               <ModalBody>
-                <p>{props.traitData.description}</p>
+                <Image
+                  width={175}
+                  height={175}
+                  alt="trait1 with fallback"
+                  src={props.traitData.imageSrc}
+                  fallbackSrc={props.traitData.imageSrc}
+                  className="border-1 border-white"
+                />
+                <p className="text-center mt-2">
+                  {props.traitData.description}
+                </p>
+                {!state.get(props.traitData.id) && <Locked />}
+                {!state.get(props.traitData.id) && (
+                  <p className="text-center">0.002 ETH</p>
+                )}
               </ModalBody>
               <ModalFooter>
-                {props.buttonType == "buy or auction" && (
-                  <Button onPress={onClose}>buy</Button>
-                )}
-                {props.buttonType == "buy or auction" && (
-                  <Button onPress={onClose}>auction</Button>
-                )}
-                {props.buttonType == "equip or sell" && (
-                  <Button onPress={onEquip}>
-                    {props.nfts
-                      .map((nft) => nft["id"])
-                      .includes(props.traitData.id)
-                      ? "unequip"
-                      : "equip"}
-                  </Button>
-                )}
-                {props.buttonType == "equip or sell" && (
-                  <Button onPress={onClose}>sell</Button>
+                {state.get(props.traitData.id) ? (
+                  // Showing equip button when player owns it
+                  <>
+                    {props.buttonType == "buy or auction" && (
+                      <Button onPress={onClose}>buy</Button>
+                    )}
+                    {props.buttonType == "buy or auction" && (
+                      <Button onPress={onClose}>auction</Button>
+                    )}
+                    {props.buttonType == "equip or sell" && (
+                      <Button onPress={onEquip}>
+                        {props.nfts
+                          .map((nft) => nft["id"])
+                          .includes(props.traitData.id)
+                          ? "unequip"
+                          : "equip"}
+                      </Button>
+                    )}
+                    {props.buttonType == "equip or sell" && (
+                      <Button onPress={onClose}>sell</Button>
+                    )}
+                  </>
+                ) : (
+                  // Showing mint button when player doesn't own it
+                  <MintTraitButton traitId={props.traitData.id} />
                 )}
               </ModalFooter>
             </div>

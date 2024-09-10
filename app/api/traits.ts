@@ -1,14 +1,13 @@
-import { NftMetadata, NftTrait } from "../lib/trait";
-import ExampleHead from "../assets/bags/白色鸭舌帽.svg";
-import ExampleNeck from "../assets/bags/Sparklab项圈.svg";
-import ExampleTail from "../assets/bags/斑马尾巴.svg";
+import { NftMetadata, NftTrait, totalTrait, TraitCategory } from "../lib/trait";
 
 function metaToTrait(metadata: NftMetadata, id: number): NftTrait {
+  const categories: TraitCategory[] = ["base", "head", "neck", "tail", "body"];
   return {
     id,
     title: metadata.name,
     description: metadata.description,
     imageSrc: metadata.image,
+    category: categories[id],
   };
 }
 
@@ -23,30 +22,12 @@ export async function loadTrait(id: number) {
   }
 }
 
-export async function getTraits(addr: `0x${string}`) {
-  const traits: NftTrait[] = [
-    {
-      id: 1,
-      title: "White Cap",
-      description: "白色鸭舌帽",
-      imageSrc: ExampleHead.src,
-      category: "head",
-    },
-    {
-      id: 2,
-      title: "Necklace",
-      description: "Sparklab项圈",
-      imageSrc: ExampleNeck.src,
-      category: "neck",
-    },
-    {
-      id: 4,
-      title: "Zebra Tail",
-      description: "斑马尾巴",
-      imageSrc: ExampleTail.src,
-      category: "tail",
-    },
-  ];
-
-  return traits;
+export async function getTraits() {
+  return Promise.all(
+    // magic
+    Array.from(
+      // emit PunkyBase (0)
+      Array.from(Array(totalTrait - 1).keys()).map((v) => loadTrait(v + 1))
+    )
+  );
 }
