@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import punky from "../../assets/bags/狗狗形态1.svg";
-import { NftTrait, TraitOwned } from "@/app/lib/trait";
+import { NftTrait, TraitEquipped, TraitOwned } from "@/app/lib/trait";
 import { useAccount } from "wagmi";
-import { getOwnedState } from "@/app/api/localdata";
+import { getEquippedState, getOwnedState } from "@/app/api/localdata";
 import { MintPunkyButton } from "@/app/components/mintBase";
 import { useEffect, useState } from "react";
 import { loadTrait } from "@/app/api/traits";

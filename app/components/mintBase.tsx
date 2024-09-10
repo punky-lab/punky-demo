@@ -3,8 +3,8 @@
 import { Button } from "@nextui-org/react";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import wagmiEthConfig from "../api/eth";
-import { totalTrait, TraitOwned } from "../lib/trait";
-import { getOwnedState, setOwnedState } from "../api/localdata";
+import { totalTrait, TraitEquipped, TraitOwned } from "../lib/trait";
+import { getOwnedState, setEquippedState, setOwnedState } from "../api/localdata";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -64,6 +64,7 @@ export function MintPunkyButton() {
       title="Mint Punky NOW"
       onClick={() => {
         setOwnedState(new Map([[0, true]]) as TraitOwned);
+        setEquippedState(new Map([[0, true]]) as TraitEquipped);
       }}
     />
   );

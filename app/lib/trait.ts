@@ -18,3 +18,4 @@ export interface NftMetadata {
 export const totalTrait = 5; // including base
 
 export type TraitOwned = Map<number, boolean>;
+export type TraitEquipped = Map<number, boolean>;

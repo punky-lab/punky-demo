@@ -1,6 +1,6 @@
 "use client";
 
-import { getTraits } from "@/app/api/traits";
+import { getAllTraits } from "@/app/api/traits";
 import NFTDisplay from "@/app/components/nftDisplay";
 import { NftTrait } from "@/app/lib/trait";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ export default function Bag(props: {
 }) {
   const [traits, setTraits] = useState<NftTrait[]>([]);
   useEffect(() => {
-    getTraits()
+    getAllTraits()
       .then((res) => {
         setTraits(res);
       })

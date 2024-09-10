@@ -22,12 +22,10 @@ export async function loadTrait(id: number) {
   }
 }
 
-export async function getTraits() {
-  return Promise.all(
-    // magic
-    Array.from(
-      // emit PunkyBase (0)
-      Array.from(Array(totalTrait - 1).keys()).map((v) => loadTrait(v + 1))
-    )
-  );
+export async function getAllTraits() {
+  return getTraits(Array.from(Array(totalTrait - 1).keys()).map((v) => v + 1))
+}
+
+export async function getTraits(idList: number[]) {
+  return Promise.all(idList.map((v) => loadTrait(v)));
 }
