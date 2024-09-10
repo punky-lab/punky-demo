@@ -3,6 +3,8 @@ import SideBar from './sidebar';
 import MainNft from './mainNft';
 import sparklab from "../../assets/bags/Sparklab项圈.svg";
 import whitecap from "../../assets/bags/白色鸭舌帽.svg";
+import ReadUrl from '@/app/components/readUrl';
+import BalanceInfo from '@/app/components/balanceOf';
 
 export default function GamePage() {
   return (
@@ -12,11 +14,12 @@ export default function GamePage() {
           <MainNft nfts={[sparklab, whitecap]}/>
         </div>
         <div className='h-8'></div>
-        <Button className='w-64'>Feed</Button>
+        <Button>View on OpenSea</Button>
       </div>
       <div className="w-1/2 h-full">
         <SideBar />
       </div>
+      <BalanceInfo traitId={0} />
     </div>
   );
 }
