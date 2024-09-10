@@ -10,16 +10,40 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { NftTrait } from "../lib/trait";
+import { useRouter } from "next/navigation";
 export default function NFTDisplay(props: {
   buttonType: string;
   traitData: NftTrait;
   updateNfts: (newNfts: NftTrait[]) => void;
   nfts: NftTrait[];
 }) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+
+  const router = useRouter();
 
   const onEquip = () => {
-    
+    if (!props.nfts.map((nft) => nft["id"]).includes(props.traitData.id)) {
+      let oldNfts = props.nfts;
+      let oldNftIndex = oldNfts.findIndex(
+        (item) => item["category"] === props.traitData["category"]
+      );
+      if (oldNftIndex !== -1) {
+        oldNfts[oldNftIndex] = props.traitData;
+      } else {
+        oldNfts.push(props.traitData);
+      }
+      props.updateNfts(oldNfts);
+    } else {
+      let newNfts: NftTrait[] = [];
+      for (let nft of props.nfts) {
+        if (nft.id !== props.traitData.id) {
+          newNfts.push(nft);
+        }
+      }
+      props.updateNfts(newNfts);
+    }
+    onClose();
+    router.refresh();
   };
 
   return (
@@ -37,7 +61,7 @@ export default function NFTDisplay(props: {
           isZoomed
           className="border-1 border-white bg-gradient-to-b to-white from-purple-300"
         />
-        <div className='mt-2'>
+        <div className="mt-2">
           <span>{props.traitData.title}</span>
         </div>
       </div>
@@ -45,6 +69,7 @@ export default function NFTDisplay(props: {
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
+        onClose={onClose}
         classNames={{
           body: "py-6",
           backdrop: "bg-[#292f46]/50 backdrop-opacity-40",
@@ -81,7 +106,13 @@ export default function NFTDisplay(props: {
                   <Button onPress={onClose}>auction</Button>
                 )}
                 {props.buttonType == "equip or sell" && (
-                  <Button onPress={onClose}>equip</Button>
+                  <Button onPress={onEquip}>
+                    {props.nfts
+                      .map((nft) => nft["id"])
+                      .includes(props.traitData.id)
+                      ? "unequip"
+                      : "equip"}
+                  </Button>
                 )}
                 {props.buttonType == "equip or sell" && (
                   <Button onPress={onClose}>sell</Button>

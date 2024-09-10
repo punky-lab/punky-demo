@@ -9,7 +9,6 @@ export default async function Bag(props: {
   nfts: NftTrait[];
 }) {
   const traits = await getTraits("0x123456");
-  // props.updateNfts(traits);
   return (
     <div>
       <div className="flex flex-row flex-wrap">
