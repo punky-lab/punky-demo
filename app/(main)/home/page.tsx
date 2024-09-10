@@ -4,27 +4,10 @@ import { Button } from "@nextui-org/react";
 import { useState } from "react";
 import SideBar from "./sidebar";
 import MainNft from "./mainNft";
-import ExampleHead from "@/app/assets/bags/白色鸭舌帽.svg";
-import ExampleNeck from "@/app/assets/bags/Sparklab项圈.svg";
 import { NftTrait } from "@/app/lib/trait";
 
 export default function GamePage() {
-  const initTraits: NftTrait[] = [
-    // {
-    //   id: 1,
-    //   title: "White Cap",
-    //   description: "白色鸭舌帽",
-    //   imageSrc: ExampleHead.src,
-    //   category: "head",
-    // },
-    // {
-    //   id: 2,
-    //   title: "Necklace",
-    //   description: "Sparklab项圈",
-    //   imageSrc: ExampleNeck.src,
-    //   category: "neck",
-    // },
-  ];
+  const initTraits: NftTrait[] = [];
 
   const [nfts, setNfts] = useState(initTraits);
 
@@ -43,7 +26,7 @@ export default function GamePage() {
           <MainNft nfts={nfts} />
         </div>
         <div className='h-8'></div>
-        <Button>View on OpenSea</Button>
+        <Button className='w-64'>Feed</Button>
       </div>
       <div className="w-1/2 h-full">
         <SideBar updateNfts={updateNfts} nfts={nfts}/>

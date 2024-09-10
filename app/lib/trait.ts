@@ -3,7 +3,14 @@ export interface NftTrait {
   title: string;
   description: string;
   imageSrc: string;
-  category: "head" | "body" | "leg" | "tail" | "neck";
+  category?: "head" | "body" | "leg" | "tail" | "neck";
+}
+
+export interface NftMetadata {
+  description: string;
+  external_url: string;
+  image: string;
+  name: string;
 }
 
 export const totalTrait = 5; // including base
