@@ -52,8 +52,8 @@ export default function ChatBox() {
     <div className="grow flex flex-col">
       <div className="grow">
         <ScrollShadow className="w-full max-h-80 text-wrap px-2" size={10}>
-          {messageList.map((m) => (
-            <Message message={m} />
+          {messageList.map((m, index) => (
+            <Message key={index} message={m} />
           ))}
         </ScrollShadow>
       </div>
