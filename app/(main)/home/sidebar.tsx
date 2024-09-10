@@ -3,8 +3,12 @@
 import { Tab, Tabs } from "@nextui-org/react";
 import Bag from "./bag";
 import ChatBox from "./chatBox";
+import { NftTrait } from "@/app/lib/trait";
 
-export default function SideBar() {
+export default function SideBar(props: {
+  updateNfts: (newNfts: NftTrait[]) => void;
+  nfts: NftTrait[];
+}) {
   return (
     <div className="h-full flex flex-col">
       <Tabs aria-label="toggle">
@@ -15,7 +19,7 @@ export default function SideBar() {
         </Tab>
         <Tab key="bag" title="Bag" className="grow flex">
           <div className="grow bg-gray-800 rounded-xl p-4">
-            <Bag />
+            <Bag updateNfts={props.updateNfts} nfts={props.nfts}/>
           </div>
         </Tab>
       </Tabs>
