@@ -1,8 +1,15 @@
+"use client";
+
 import AppHeader from "./components/header";
 import DogsImage from "./assets/punky-dogs.jpg";
 import Image from "next/image";
+import { useAccount } from "wagmi";
+import { Button } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
+  const account = useAccount();
+  const router = useRouter();
   return (
     <div className="w-full h-full flex flex-col">
       <AppHeader link="dashboard" />
@@ -19,10 +26,23 @@ export default function Dashboard() {
               owner
             </span>
           </div>
-          <div>
-            <span className="text-4xl font-semibold text-gray-400">
-              Connect to wallet to play
-            </span>
+          <div className="mt-4">
+            {account.status === "connected" ? (
+              <Button
+                size="lg"
+                radius="full"
+                className="w-64 bg-gradient-to-br from-pink-600 to-blue-600 font-bold text-xl"
+                onClick={() => {
+                  router.push("/home");
+                }}
+              >
+                Play Now
+              </Button>
+            ) : (
+              <span className="text-4xl font-semibold text-gray-400">
+                Connect to wallet to play
+              </span>
+            )}
           </div>
         </div>
         <div className="w-1/2 h-full relative">

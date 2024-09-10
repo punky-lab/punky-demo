@@ -1,17 +1,27 @@
 "use client";
 
-import { getTraits } from "@/app/api/traits";
+import { getAllTraits } from "@/app/api/traits";
 import NFTDisplay from "@/app/components/nftDisplay";
 import { NftTrait } from "@/app/lib/trait";
+import { useEffect, useState } from "react";
 
-export default async function Bag(props: {
+export default function Bag(props: {
   updateNfts: (newNfts: NftTrait[]) => void;
   nfts: NftTrait[];
 }) {
-  const traits = await getTraits("0x123456");
+  const [traits, setTraits] = useState<NftTrait[]>([]);
+  useEffect(() => {
+    getAllTraits()
+      .then((res) => {
+        setTraits(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
   return (
     <div>
-      <div className="flex flex-row flex-wrap">
+      <div className="flex flex-row flex-wrap items-center justify-center">
         {traits.map((item, index) => (
           <NFTDisplay
             key={index}
