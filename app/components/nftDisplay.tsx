@@ -13,8 +13,14 @@ import { NftTrait } from "../lib/trait";
 export default function NFTDisplay(props: {
   buttonType: string;
   traitData: NftTrait;
+  updateNfts: (newNfts: NftTrait[]) => void;
+  nfts: NftTrait[];
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const onEquip = () => {
+    
+  };
 
   return (
     <>
